@@ -10,9 +10,8 @@ Obstacle::Obstacle(float x, float y, float r, float speedX, float slope, color_t
 //    this->accel = glm::vec3(0,0.001,0);
     static const int n = 25;
     static GLfloat vertex_buffer_data[n*9];
-
     GLfloat angle = 0;
-
+    this->slope = slope;
     // The radius of the circle that will be formed.
 
     GLfloat radius = r;
@@ -35,20 +34,34 @@ Obstacle::Obstacle(float x, float y, float r, float speedX, float slope, color_t
 
         angle = angle+curr;
     }
+    static GLfloat slope_vertex_buffer_data[] = {
+        -r, 1.2*r, 0, // vertex 1
+        r,  1.2*r, 0, // vertex 2
+        -r,  0.6*r, 0, // vertex 3
+
+        -r,  0.6*r, 0, // vertex 3
+        r,  0.6*r, 0, // vertex 4
+        r, 1.2*r, 0, // vertex 2
+
+        };
+
 
     this->object = create3DObject(GL_TRIANGLES, n*3, vertex_buffer_data, color, GL_FILL);
+    this->incline = create3DObject(GL_TRIANGLES, 6, slope_vertex_buffer_data, COLOR_BLACK, GL_FILL);
 
 }
 
 void Obstacle::draw(glm::mat4 VP) {
     Matrices.model = glm::mat4(1.0f);
     glm::mat4 translate = glm::translate (this->position);    // glTranslatef
-    glm::mat4 rotate    = glm::rotate((float) (0 * M_PI / 180.0f), glm::vec3(0, 0, 1));
+    glm::mat4 rotate    = glm::rotate((float) (slope * M_PI / 180.0f), glm::vec3(0, 0, 1));
     rotate          = rotate * glm::translate(glm::vec3(0, 0, 0));
     Matrices.model *= (translate * rotate);
     glm::mat4 MVP = VP * Matrices.model;
     glUniformMatrix4fv(Matrices.MatrixID, 1, GL_FALSE, &MVP[0][0]);
     draw3DObject(this->object);
+    if(abs(slope) > 20)
+    draw3DObject(this->incline);
 }
 
 void Obstacle::set_position(float x, float y) {
@@ -56,17 +69,7 @@ void Obstacle::set_position(float x, float y) {
 }
 
 void Obstacle::tick() {
-//    this->position.x -= speed;
     this->position.x += (this->speed).x;
-//    this->position.y += (this->speed).y;
-//    if(this->position.y > -2)
-//    {
-//        (this->speed).y -= (this->accel).y;
-//    }
-//    else
-//    {
-//        (this->speed).y = 0;
-//    }
 }
 
 bounding_box_t Obstacle::bounding_box() {

@@ -15,10 +15,7 @@ GLFWwindow *window;
 **************************/
 
 Floor floor1;
-//Ball ball1, ball2;
 Ball ball1;
-//Ball balls[100];
-//vector<Ball> balls(30);
 vector<Obstacle> fballs(20);
 
 float screen_zoom = 1, screen_center_x = 0, screen_center_y = 0;
@@ -63,7 +60,6 @@ void draw() {
 
     // Scene render
     ball1.draw(VP);
-//    ball2.draw(VP);
     floor1.draw(VP);
     for(int i=0;i<fballs.size();i++)
     {

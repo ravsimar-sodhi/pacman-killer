@@ -19,6 +19,7 @@ public:
     bounding_box_t bounding_box();
 private:
     VAO* object;
+    VAO* incline;
 };
 
 #endif // OBSTACLE_H

@@ -6,7 +6,7 @@ Ball::Ball(float x, float y, color_t color) {
     this->position = glm::vec3(x, y, 0);
     this->rotation = 0;
     this->speed = glm::vec3(0,0,0);
-    this->accel = glm::vec3(0,0.001,0);
+    this->accel = glm::vec3(0,0.004,0);
     static const int n = 25;
     static GLfloat vertex_buffer_data[n*9];
 
@@ -36,7 +36,7 @@ Ball::Ball(float x, float y, color_t color) {
     }
 
 
-//    static const GLfloat vertex_buffer_data[] = {
+//    static const GLfloat vertex_buffer_data2[] = {
 //        -0.2, -0.2, 0, // vertex 1
 //        0.2,  -0.2, 0, // vertex 2
 //        0.2,  0.2, 0, // vertex 3
@@ -47,6 +47,7 @@ Ball::Ball(float x, float y, color_t color) {
 //    };
 
     this->object = create3DObject(GL_TRIANGLES, n*3, vertex_buffer_data, color, GL_FILL);
+//    this->object = create3DObject(GL_TRIANGLES, 6, vertex_buffer_data2, color, GL_FILL);
 
 }
 
@@ -75,6 +76,7 @@ void Ball::tick() {
     }
     else
     {
+        this->speed.x = 0;
         (this->speed).y = 0;
     }
 }

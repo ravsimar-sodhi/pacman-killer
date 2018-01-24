@@ -75,6 +75,7 @@ bool detect_collision(bounding_box_t a, bounding_box_t b);
 bool detect_collision_y(bounding_box_t a, bounding_box_t b);
 bool detect_collision_l(bounding_box_t a, bounding_box_t b);
 bool detect_collision_r(bounding_box_t a, bounding_box_t b);
+bool detectCollision(bounding_box_t player, bounding_box_t obs);
 double getRandDouble(double x, double y);
 
 void jump();
