@@ -2,6 +2,7 @@
 #include "timer.h"
 #include "ball.h"
 #include "floor.h"
+#include "obstacle.h"
 
 using namespace std;
 
@@ -14,16 +15,23 @@ GLFWwindow *window;
 **************************/
 
 Floor floor1;
-Ball ball1, ball2;
+//Ball ball1, ball2;
+Ball ball1;
 //Ball balls[100];
-vector<Ball> balls(30);
+//vector<Ball> balls(30);
+vector<Obstacle> fballs(30);
 
 float screen_zoom = 1, screen_center_x = 0, screen_center_y = 0;
 
 Timer t60(1.0 / 60);
+Timer t2(2);
 
 /* Render the scene with openGL */
 /* Edit this function according to your assignment */
+double getRandDouble(double l, double r)
+{
+    return l + (((double)rand())/RAND_MAX)*(r - l);
+}
 void draw() {
     // clear the color and depth in the frame buffer
     glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -55,11 +63,11 @@ void draw() {
 
     // Scene render
     ball1.draw(VP);
-    ball2.draw(VP);
+//    ball2.draw(VP);
     floor1.draw(VP);
-    for(int i=0;i<balls.size();i++)
+    for(int i=0;i<fballs.size();i++)
     {
-        balls[i].draw(VP);
+        fballs[i].draw(VP);
     }
 }
 
@@ -70,7 +78,7 @@ void tick_input(GLFWwindow *window) {
     if (left) {
 //        ball1.rotation += 1;
 //        ball1.position.x -= 0.01;
-        if(!detect_collision_l(ball1.bounding_box(),ball2.bounding_box()))
+//        if(!detect_collision_l(ball1.bounding_box(),ball2.bounding_box()))
             ball1.speed.x = 0.02;
         ball1.position.x -= (ball1.speed.x);
         ball1.speed.x = 0;
@@ -79,7 +87,7 @@ void tick_input(GLFWwindow *window) {
     else if (right) {
 //        ball1.rotation -= 1;
 //        ball1.position.x += 0.01;
-        if(!detect_collision_r(ball1.bounding_box(),ball2.bounding_box()))
+//        if(!detect_collision_r(ball1.bounding_box(),ball2.bounding_box()))
             ball1.speed.x = 0.02;
         ball1.position.x += (ball1.speed.x);
         ball1.speed.x = 0;
@@ -92,21 +100,21 @@ void tick_input(GLFWwindow *window) {
 
 void tick_elements() {
     ball1.tick();
-    ball2.tick();
-    for(int i=0;i<balls.size();i++)
+//    ball2.tick();
+    for(int i=0;i<fballs.size();i++)
     {
-        balls[i].tick();
+        fballs[i].tick();
     }
-    if (detect_collision(ball1.bounding_box(), ball2.bounding_box())) {
-//        ball1.speed = -ball1.speed;
-//        ball2.speed = -ball2.speed;
+//    if (detect_collision(ball1.bounding_box(), ball2.bounding_box())) {
+//      //  ball1.speed = -ball1.speed;
+//      //  ball2.speed = -ball2.speed;
 
-        if(detect_collision_y(ball1.bounding_box(),ball2.bounding_box()))
-            ball1.speed.y = 0;
-        else
-            ball1.speed.x = 0;
-//        ball1.position = ball1.position;
-    }
+//        if(detect_collision_y(ball1.bounding_box(),ball2.bounding_box()))
+//            ball1.speed.y = 0;
+//        else
+//            ball1.speed.x = 0;
+//       // ball1.position = ball1.position;
+//    }
 }
 
 /* Initialize the OpenGL rendering properties */
@@ -116,17 +124,18 @@ void initGL(GLFWwindow *window, int width, int height) {
     // Create the models
     floor1       = Floor(-4, -4, 4, -2.33, COLOR_BLACK);
     ball1       = Ball(2, -2, COLOR_RED);
-    ball2       = Ball(-2, -2, COLOR_BLACK);
-    for(int i=0;i<balls.size();i++)
+//    ball2       = Ball(-2, -2, COLOR_BLACK);
+    for(int i=0;i<fballs.size();i++)
     {
-        balls[i] = Ball(-5+8*(((double)rand())/RAND_MAX),-1.2+5*(((double)rand())/RAND_MAX),COLOR_GREEN);
-        balls[i].speed.x =0.04*(((double)rand())/RAND_MAX);
-        balls[i].accel.y = 0;
+        fballs[i] = Obstacle(getRandDouble(-5,3),getRandDouble(-1.6,3),getRandDouble(0.1,0.25),getRandDouble(0.01,0.04),0,COLOR_YELLOW);
+//        fballs[i] = Obstacle(-5+8*(((double)rand())/RAND_MAX),-1.2+5*(((double)rand())/RAND_MAX),COLOR_YELLOW);
+//        fballs[i].speed.x =0.04*(((double)rand())/RAND_MAX);
+//        fballs[i].accel.y = 0;
     }
 
 //    ball2.speed = -ball2.speed;
     ball1.speed.x = 0;
-    ball2.speed.x = 0;
+//    ball2.speed.x = 0;
 
 
     // Create and compile our GLSL program from the shaders
@@ -173,6 +182,20 @@ int main(int argc, char **argv) {
 
             tick_elements();
             tick_input(window);
+        }
+        if(t2.processTick()) {
+            for(int i=0;i<fballs.size();i++)
+            {
+                if(fballs[i].position.x > 4)
+                {
+                    fballs.erase(fballs.begin()+i);
+                }
+            }
+            while(fballs.size() < 30)
+            {
+                fballs.insert(fballs.end(),Obstacle(getRandDouble(-5,-4),getRandDouble(-1.6,3),getRandDouble(0.1,0.25),getRandDouble(0.01,0.04),0,COLOR_YELLOW));
+            }
+
         }
 
         // Poll for Keyboard and mouse events

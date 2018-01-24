@@ -75,6 +75,7 @@ bool detect_collision(bounding_box_t a, bounding_box_t b);
 bool detect_collision_y(bounding_box_t a, bounding_box_t b);
 bool detect_collision_l(bounding_box_t a, bounding_box_t b);
 bool detect_collision_r(bounding_box_t a, bounding_box_t b);
+double getRandDouble(double x, double y);
 
 void jump();
 extern float screen_zoom, screen_center_x, screen_center_y;
@@ -85,5 +86,6 @@ extern const color_t COLOR_RED;
 extern const color_t COLOR_GREEN;
 extern const color_t COLOR_BLACK;
 extern const color_t COLOR_BACKGROUND;
+extern const color_t COLOR_YELLOW;
 
 #endif
