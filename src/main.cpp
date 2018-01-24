@@ -1,6 +1,7 @@
 #include "main.h"
 #include "timer.h"
 #include "ball.h"
+#include "floor.h"
 
 using namespace std;
 
@@ -12,6 +13,7 @@ GLFWwindow *window;
 * Customizable functions *
 **************************/
 
+Floor floor1;
 Ball ball1, ball2;
 //Ball balls[100];
 vector<Ball> balls(30);
@@ -54,6 +56,7 @@ void draw() {
     // Scene render
     ball1.draw(VP);
     ball2.draw(VP);
+    floor1.draw(VP);
     for(int i=0;i<balls.size();i++)
     {
         balls[i].draw(VP);
@@ -68,18 +71,18 @@ void tick_input(GLFWwindow *window) {
 //        ball1.rotation += 1;
 //        ball1.position.x -= 0.01;
         if(!detect_collision_l(ball1.bounding_box(),ball2.bounding_box()))
-            ball1.speed = 0.02;
-        ball1.position.x -= (ball1.speed);
-        ball1.speed = 0;
+            ball1.speed.x = 0.02;
+        ball1.position.x -= (ball1.speed.x);
+        ball1.speed.x = 0;
         // Do something
     }
     else if (right) {
 //        ball1.rotation -= 1;
 //        ball1.position.x += 0.01;
         if(!detect_collision_r(ball1.bounding_box(),ball2.bounding_box()))
-            ball1.speed = 0.02;
-        ball1.position.x += (ball1.speed);
-        ball1.speed = 0;
+            ball1.speed.x = 0.02;
+        ball1.position.x += (ball1.speed.x);
+        ball1.speed.x = 0;
     }
     else if (up) {
 //        keyboard(window,GLFW_KEY_UP,0,GLFW_RELEASE,0);
@@ -99,9 +102,9 @@ void tick_elements() {
 //        ball2.speed = -ball2.speed;
 
         if(detect_collision_y(ball1.bounding_box(),ball2.bounding_box()))
-            ball1.speedY = 0;
+            ball1.speed.y = 0;
         else
-            ball1.speed = 0;
+            ball1.speed.x = 0;
 //        ball1.position = ball1.position;
     }
 }
@@ -111,19 +114,19 @@ void tick_elements() {
 void initGL(GLFWwindow *window, int width, int height) {
     /* Objects should be created before any other gl function and shaders */
     // Create the models
-
+    floor1       = Floor(-4, -4, 4, -2.33, COLOR_BLACK);
     ball1       = Ball(2, -2, COLOR_RED);
     ball2       = Ball(-2, -2, COLOR_BLACK);
     for(int i=0;i<balls.size();i++)
     {
-        balls[i] = Ball(-5+8*(((double)rand())/RAND_MAX),-1.2+5*(((double)rand())/RAND_MAX),COLOR_BLACK);
-        balls[i].speed =0.04*(((double)rand())/RAND_MAX);
-        balls[i].accelY = 0;
+        balls[i] = Ball(-5+8*(((double)rand())/RAND_MAX),-1.2+5*(((double)rand())/RAND_MAX),COLOR_GREEN);
+        balls[i].speed.x =0.04*(((double)rand())/RAND_MAX);
+        balls[i].accel.y = 0;
     }
 
 //    ball2.speed = -ball2.speed;
-    ball1.speed = 0;
-    ball2.speed = 0;
+    ball1.speed.x = 0;
+    ball2.speed.x = 0;
 
 
     // Create and compile our GLSL program from the shaders
@@ -206,6 +209,6 @@ void reset_screen() {
 
 void jump()
 {
-    if(ball1.speedY == 0)
-    ball1.speedY = 0.05;
+    if(ball1.speed.y == 0)
+    ball1.speed.y = 0.05;
 }
