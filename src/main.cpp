@@ -102,23 +102,30 @@ void tick_elements() {
         {
             double angle,anglei,angler,speed;
             angle = fballs[i].slope;
-            if(abs(angle) < 20)
+            angle = ( (fballs[i].slope > 0) ? 90 - fballs[i].slope :90 + abs(fballs[i].slope) );
+            if (ball1.speed.x == 0)
+                anglei = 90;
+            else
+            {
+                anglei = atan(ball1.speed.y / ball1.speed.x);
+                if (anglei < 0)
+                {
+                    anglei = abs(anglei) + 90;
+                }
+            }
+            if((angle >70 && angle < 110)||abs(angle-anglei) > 90)
             {
                 ball1.speed.y = 0.1;
             }
             else
             {
                 speed = sqrt(pow(ball1.speed.x,2) + pow(ball1.speed.y,2));
-                if(ball1.speed.y == 0)
-                    anglei = (ball1.speed.x > 0?90:-90);
-                else
-                    anglei = ball1.speed.x/ball1.speed.y;
-                angler = abs(anglei) - abs(angle);
-                angler = (angle<0?anglei-angler:anglei+angler);
-                // speed = 0.04;
-                ball1.speed.x = speed*sin(angler*M_PI/180.0);
-                ball1.speed.y = speed*cos(angler*M_PI/180.0);
+                
+                angler = 2*angle - anglei;
+                ball1.speed.x = -speed*cos(angler*M_PI/180.0);
+                ball1.speed.y = speed*sin(angler*M_PI/180.0);
             }
+            // cout << "Slope: " << angle << " anglei: " << anglei << " angler: " << angler << endl;
             fballs.erase(fballs.begin()+i);
             break;
         }
