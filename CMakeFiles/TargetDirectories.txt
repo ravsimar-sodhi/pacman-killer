@@ -1,0 +1,3 @@
+/home/ravsimar/Git/pacman-killer/CMakeFiles/rebuild_cache.dir
+/home/ravsimar/Git/pacman-killer/CMakeFiles/graphics_asgn1.dir
+/home/ravsimar/Git/pacman-killer/CMakeFiles/edit_cache.dir

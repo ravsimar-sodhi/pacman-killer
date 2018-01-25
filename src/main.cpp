@@ -15,10 +15,7 @@ GLFWwindow *window;
 **************************/
 
 Floor floor1;
-//Ball ball1, ball2;
 Ball ball1;
-//Ball balls[100];
-//vector<Ball> balls(30);
 vector<Obstacle> fballs(20);
 
 float screen_zoom = 1, screen_center_x = 0, screen_center_y = 0;
@@ -63,7 +60,6 @@ void draw() {
 
     // Scene render
     ball1.draw(VP);
-//    ball2.draw(VP);
     floor1.draw(VP);
     for(int i=0;i<fballs.size();i++)
     {
@@ -76,19 +72,14 @@ void tick_input(GLFWwindow *window) {
     int right = glfwGetKey(window, GLFW_KEY_RIGHT);
     int up = glfwGetKey(window, GLFW_KEY_UP);
     if (left) {
-//        ball1.rotation += 1;
-//        ball1.position.x -= 0.01;
-//        if(!detect_collision_l(ball1.bounding_box(),ball2.bounding_box()))
-            ball1.speed.x = 0.04;
+        ball1.speed.x = 0.04;
         ball1.position.x -= (ball1.speed.x);
         ball1.speed.x = 0;
         // Do something
     }
     else if (right) {
-//        ball1.rotation -= 1;
-//        ball1.position.x += 0.01;
-//        if(!detect_collision_r(ball1.bounding_box(),ball2.bounding_box()))
-            ball1.speed.x = 0.04;
+
+        ball1.speed.x = 0.04;
         ball1.position.x += (ball1.speed.x);
         ball1.speed.x = 0;
     }
@@ -124,6 +115,7 @@ void tick_elements() {
                     anglei = ball1.speed.x/ball1.speed.y;
                 angler = abs(anglei) - abs(angle);
                 angler = (angle<0?anglei-angler:anglei+angler);
+                // speed = 0.04;
                 ball1.speed.x = speed*sin(angler*M_PI/180.0);
                 ball1.speed.y = speed*cos(angler*M_PI/180.0);
             }
@@ -140,19 +132,12 @@ void initGL(GLFWwindow *window, int width, int height) {
     // Create the models
     floor1       = Floor(-4, -4, 4, -2.33, COLOR_BLACK);
     ball1       = Ball(2, -2, COLOR_RED);
-//    ball2       = Ball(-2, -2, COLOR_BLACK);
     for(int i=0;i<fballs.size();i++)
     {
         fballs[i] = Obstacle(getRandDouble(-5,3),getRandDouble(-1.6,3),getRandDouble(0.1,0.25),getRandDouble(0.01,0.04),getRandDouble(-45,45),COLOR_YELLOW);
-//        fballs[i] = Obstacle(-5+8*(((double)rand())/RAND_MAX),-1.2+5*(((double)rand())/RAND_MAX),COLOR_YELLOW);
-//        fballs[i].speed.x =0.04*(((double)rand())/RAND_MAX);
-//        fballs[i].accel.y = 0;
     }
 
-//    ball2.speed = -ball2.speed;
     ball1.speed.x = 0;
-//    ball2.speed.x = 0;
-
 
     // Create and compile our GLSL program from the shaders
     programID = LoadShaders("Sample_GL.vert", "Sample_GL.frag");

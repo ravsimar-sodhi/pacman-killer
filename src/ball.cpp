@@ -34,21 +34,7 @@ Ball::Ball(float x, float y, color_t color) {
 
         angle = angle+curr;
     }
-
-
-//    static const GLfloat vertex_buffer_data2[] = {
-//        -0.2, -0.2, 0, // vertex 1
-//        0.2,  -0.2, 0, // vertex 2
-//        0.2,  0.2, 0, // vertex 3
-
-//        0.2,  0.2, 0, // vertex 3
-//        -0.2, 0.2, 0, // vertex 4
-//        -0.2, -0.2, 0 // vertex 1
-//    };
-
     this->object = create3DObject(GL_TRIANGLES, n*3, vertex_buffer_data, color, GL_FILL);
-//    this->object = create3DObject(GL_TRIANGLES, 6, vertex_buffer_data2, color, GL_FILL);
-
 }
 
 void Ball::draw(glm::mat4 VP) {
