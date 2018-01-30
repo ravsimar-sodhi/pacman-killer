@@ -138,25 +138,34 @@ void tick_elements() {
             break;
         }
     }
-
     if(detectWater(ball1.bounding_box(), pond1.bounding_box()))
     {
-        if(ball1.speed.y > 0.1)
-            ball1.speed.y = 0.1;
-        else if (ball1.speed.y < -0.1)
-            ball1.speed.y = -0.1;
-        ball1.accel.y = -0.001;
-
-        // if(ball1.position.x != pond1.position.x)
+        if (ball1.speed.y > 0.06)
+            ball1.speed.y = 0.06;
+        else if (ball1.speed.y < -0.06)
+            ball1.speed.y = -0.06;
+            // cout << ball1.position.y << " " << pond1.corrsY(ball1.position.x)<< endl;
+        if (ball1.position.y > pond1.corrsY(ball1.position.x) + 0.3)
+        {
+            ball1.accel.y = -0.001;
+        }
+        // else if (ball1.position.y < pond1.corrsY(ball1.position.x) + 0.3)
         // {
-        //     ball1.speed.x = -0.005*(ball1.position.x-pond1.position.x)/abs(ball1.position.x-pond1.position.x); 
+        //     // ball1.speed.y = 0.01;
+        //     ball1.position.y = pond1.corrsY(ball1.position.x) + 0.3;
         // }
-        // if(abs(pond1.position.x - ball1.position.x) >= 0.05)
-        // {
-        //     ball1.position.y = pond1.position.y - sqrt(pow(pond1.radius-0.25,2) - pow(ball1.position.x -pond1.position.x,2));
-        // }
-
-        // cout << "In Pond" << endl;
+        else
+        {
+            // ball1.position.y = pond1.corrsY(ball1.position.y + 0.3);
+            ball1.accel.y = 0;
+            // ball1.speed.y = 0;
+            ball1.speed.x = -0.005 * (ball1.position.x - pond1.position.x) / abs((ball1.position.x - pond1.position.x));
+        }
+        if (ball1.position.y < pond1.corrsY(ball1.position.x) + 0.3)
+        {
+            // ball1.speed.y = 0.01;
+            ball1.position.y = pond1.corrsY(ball1.position.x) + 0.3;
+        }
     }
     else
     {
@@ -171,10 +180,47 @@ void tick_elements() {
             ball1.accel.y = -0.004;
         }
     }
-    if(ball1.speed.y <= 0 && detectTrampoline(ball1.bounding_box(), tramp1.bounding_box()))
+    if (ball1.speed.y <= 0 && detectTrampoline(ball1.bounding_box(), tramp1.bounding_box()))
     {
         ball1.speed.y = 0.18;
     }
+    // if (detectWater(ball1.bounding_box(), pond1.bounding_box()) || detectWaterBound(ball1.bounding_box(), pond1.bounding_box()))
+    // {
+    //     if(ball1.speed.y > 0.07)
+    //         ball1.speed.y = 0.07;
+    //     else if (ball1.speed.y < -0.07)
+    //         ball1.speed.y = -0.07;
+    //     ball1.accel.y = -0.001;
+    //     ball1.speed.x = -0.02*(ball1.position.x - pond1.position.x) / abs((ball1.position.x - pond1.position.x));
+
+    //     if (detectWaterBound(ball1.bounding_box(), pond1.bounding_box()))
+    //     {
+    //         cout << "water boundary" << endl;
+    //         double fy = pond1.position.y - sqrt(pow(pond1.radius - 0.3, 2) - pow(ball1.position.x - pond1.position.x, 2));
+    //         if(ball1.position.y !=  fy)
+    //         {
+    //             if(ball1.position.y < fy)
+    //             {
+    //                 ball1.speed.y += 0.01;
+    //             }    
+    //             else if(ball1.position.y > fy)
+    //             {
+    //                 ball1.speed.y -= 0.01;
+    //             }
+    //         }        
+    // }
+        // if(ball1.position.x != pond1.position.x)
+        // {
+        //     ball1.speed.x = -0.005*(ball1.position.x-pond1.position.x)/abs(ball1.position.x-pond1.position.x); 
+        // }
+        // if(abs(pond1.position.x - ball1.position.x) >= 0.05)
+        // {
+        //     ball1.position.y = pond1.position.y - sqrt(pow(pond1.radius-0.25,2) - pow(ball1.position.x -pond1.position.x,2));
+        // }
+
+        // cout << "In Pond" << endl;
+    // }
+    
 }
 
 /* Initialize the OpenGL rendering properties */
@@ -184,12 +230,12 @@ void initGL(GLFWwindow *window, int width, int height) {
     // Create the models
     floor1       = Floor(-6, -4, 6, -2.7, COLOR_BLACK);
     grass       = Floor(-6,-2.7, 6, -2.3, COLOR_GREEN);
-    ball1       = Ball(2, -2, COLOR_RED);
+    ball1       = Ball(1, -2, COLOR_RED);
     for(int i=0;i<fballs.size();i++)
     {
         fballs[i] = Obstacle(getRandDouble(-5,3),getRandDouble(-1.6,3),getRandDouble(0.1,0.25),getRandDouble(0.01,0.04),getRandDouble(-45,45),COLOR_YELLOW);
     }
-    tramp1      = Trampoline(3, -1.8, COLOR_RED);
+    tramp1      = Trampoline(3, -1.8, COLOR_ORANGE);
 
     ball1.speed.x = 0;
 
@@ -284,9 +330,15 @@ bool detectCollision(bounding_box_t player, bounding_box_t obs)
 
 bool detectWater(bounding_box_t player, bounding_box_t pond)
 {
-    return ((pow(abs(player.x - pond.x),2) + pow(abs(player.y - pond.y),2) <= pow(pond.width - 0.25,2)) && player.y <= pond.y + 0.3 && player.y - 0.3 >= pond.y - pond.height);
+    return ( (abs(player.x - pond.x) <= pond.width) && 
+            (player.y <= pond.y + 0.3) );
+    // return ((pow(abs(player.x - pond.x),2) + pow(abs(player.y - pond.y),2) <= pow(pond.width - 0.3,2)) && player.y <= pond.y + 0.3 && player.y - 0.3 >= pond.y - pond.height);
 }
 
+// bool detectWaterBound(bounding_box_t player, bounding_box_t pond)
+// {
+//     return (player.y <= pond.y + 0.3 && player.y - 0.3 >= pond.y - pond.height && abs(player.x - pond.x) <= pond.width && (pow(abs(player.x - pond.x), 2) + pow(abs(player.y - pond.y), 2) >= pow(pond.width, 2)));
+// }
 bool detectTrampoline(bounding_box_t player, bounding_box_t tramp)
 {
     return( player.x >= (tramp.x - (tramp.width/2)) && (player.x <= tramp.x + (tramp.width/2)) && (player.y - tramp.y)*2 <= player.width && player.y >= tramp.y );
@@ -302,6 +354,6 @@ void reset_screen() {
 
 void jump()
 {
-    if(ball1.speed.y == 0)
+    if(ball1.speed.y == 0 || ball1.position.y < -2.3)
     ball1.speed.y = 0.12;
 }

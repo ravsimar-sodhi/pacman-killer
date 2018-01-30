@@ -78,6 +78,7 @@ struct bounding_box_t {
 bool detectCollision(bounding_box_t player, bounding_box_t obs);
 bool detectWater(bounding_box_t player, bounding_box_t pond);
 bool detectTrampoline(bounding_box_t player, bounding_box_t tramp);
+bool detectWaterBound(bounding_box_t player, bounding_box_t pond);
 double getRandDouble(double x, double y);
 
 void jump();
@@ -91,5 +92,6 @@ extern const color_t COLOR_BLACK;
 extern const color_t COLOR_BACKGROUND;
 extern const color_t COLOR_YELLOW;
 extern const color_t COLOR_BLUE;
+extern const color_t COLOR_ORANGE;
 
 #endif

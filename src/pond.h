@@ -14,6 +14,7 @@ class Pond
     void set_position(float x, float y);
     void tick();
     bounding_box_t bounding_box();
+    double corrsY(double x);
   private:
     VAO *object;
 };

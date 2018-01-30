@@ -6,3 +6,4 @@ const color_t COLOR_BLACK = { 52, 73, 94 };
 const color_t COLOR_BACKGROUND = { 242, 241, 239 };
 const color_t COLOR_YELLOW = {242, 210, 0 } ;
 const color_t COLOR_BLUE = { 66, 100, 244 };
+const color_t COLOR_ORANGE = { 244, 170, 44 };

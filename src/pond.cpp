@@ -66,3 +66,8 @@ bounding_box_t Pond::bounding_box()
     bounding_box_t bbox = {x, y, this->radius, this->radius};
     return bbox;
 }
+
+double Pond::corrsY(double x)
+{
+    return this->position.y - sqrt(pow(this->radius,2)  - pow(x-this->position.x,2));
+}
