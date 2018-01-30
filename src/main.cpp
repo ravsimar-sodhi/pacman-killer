@@ -5,6 +5,7 @@
 #include "obstacle.h"
 #include "pond.h"
 #include "trampoline.h"
+#include "magnet.h"
 
 using namespace std;
 
@@ -22,7 +23,8 @@ Ball ball1;
 vector<Obstacle> fballs(20);
 Pond pond1;
 Trampoline tramp1;
-
+Magnet mag1,mag2;
+color_t fballCol[] = {COLOR_PINK, COLOR_PURPLE, COLOR_YELLOW};
 float screen_zoom = 1, screen_center_x = 0, screen_center_y = 0;
 
 Timer t60(1.0 / 60);
@@ -68,6 +70,8 @@ void draw() {
     tramp1.draw(VP);
     grass.draw(VP);
     pond1.draw(VP);
+    mag1.draw(VP);
+    mag2.draw(VP);
     ball1.draw(VP);
     for(int i=0;i<fballs.size();i++)
     {
@@ -99,7 +103,8 @@ void tick_input(GLFWwindow *window) {
 
 void tick_elements() {
     ball1.tick();
-
+    mag1.tick();
+    mag2.tick();
     for(int i=0;i<fballs.size();i++)
     {
         fballs[i].tick();
@@ -133,7 +138,6 @@ void tick_elements() {
                 ball1.speed.x = -speed*cos(angler*M_PI/180.0);
                 ball1.speed.y = speed*sin(angler*M_PI/180.0);
             }
-            // cout << "Slope: " << angle << " anglei: " << anglei << " angler: " << angler << endl;
             fballs.erase(fballs.begin()+i);
             break;
         }
@@ -144,26 +148,17 @@ void tick_elements() {
             ball1.speed.y = 0.06;
         else if (ball1.speed.y < -0.06)
             ball1.speed.y = -0.06;
-            // cout << ball1.position.y << " " << pond1.corrsY(ball1.position.x)<< endl;
         if (ball1.position.y > pond1.corrsY(ball1.position.x) + 0.3)
         {
             ball1.accel.y = -0.001;
         }
-        // else if (ball1.position.y < pond1.corrsY(ball1.position.x) + 0.3)
-        // {
-        //     // ball1.speed.y = 0.01;
-        //     ball1.position.y = pond1.corrsY(ball1.position.x) + 0.3;
-        // }
         else
         {
-            // ball1.position.y = pond1.corrsY(ball1.position.y + 0.3);
             ball1.accel.y = 0;
-            // ball1.speed.y = 0;
             ball1.speed.x = -0.005 * (ball1.position.x - pond1.position.x) / abs((ball1.position.x - pond1.position.x));
         }
         if (ball1.position.y < pond1.corrsY(ball1.position.x) + 0.3)
         {
-            // ball1.speed.y = 0.01;
             ball1.position.y = pond1.corrsY(ball1.position.x) + 0.3;
         }
     }
@@ -184,43 +179,47 @@ void tick_elements() {
     {
         ball1.speed.y = 0.18;
     }
-    // if (detectWater(ball1.bounding_box(), pond1.bounding_box()) || detectWaterBound(ball1.bounding_box(), pond1.bounding_box()))
-    // {
-    //     if(ball1.speed.y > 0.07)
-    //         ball1.speed.y = 0.07;
-    //     else if (ball1.speed.y < -0.07)
-    //         ball1.speed.y = -0.07;
-    //     ball1.accel.y = -0.001;
-    //     ball1.speed.x = -0.02*(ball1.position.x - pond1.position.x) / abs((ball1.position.x - pond1.position.x));
 
-    //     if (detectWaterBound(ball1.bounding_box(), pond1.bounding_box()))
-    //     {
-    //         cout << "water boundary" << endl;
-    //         double fy = pond1.position.y - sqrt(pow(pond1.radius - 0.3, 2) - pow(ball1.position.x - pond1.position.x, 2));
-    //         if(ball1.position.y !=  fy)
-    //         {
-    //             if(ball1.position.y < fy)
-    //             {
-    //                 ball1.speed.y += 0.01;
-    //             }    
-    //             else if(ball1.position.y > fy)
-    //             {
-    //                 ball1.speed.y -= 0.01;
-    //             }
-    //         }        
-    // }
-        // if(ball1.position.x != pond1.position.x)
-        // {
-        //     ball1.speed.x = -0.005*(ball1.position.x-pond1.position.x)/abs(ball1.position.x-pond1.position.x); 
-        // }
-        // if(abs(pond1.position.x - ball1.position.x) >= 0.05)
-        // {
-        //     ball1.position.y = pond1.position.y - sqrt(pow(pond1.radius-0.25,2) - pow(ball1.position.x -pond1.position.x,2));
-        // }
-
-        // cout << "In Pond" << endl;
-    // }
-    
+    if(mag1.active == 1)
+    {
+        if(mag1.position.x <= -4)
+        {
+            mag1.speed.x = 0.05;
+        }
+        else
+        {
+            mag1.speed.x = 0;
+        }
+        ball1.accel.x = -0.001;
+    }
+    else
+    {
+        if(mag1.position.x >= -5)
+        {
+            mag1.speed.x  = -0.05;
+            ball1.accel.x = 0;
+        }
+    }
+    if (mag2.active == 1)
+    {
+        if (mag2.position.x >= 4)
+        {
+            mag2.speed.x = -0.05;
+        }
+        else
+        {
+            mag2.speed.x = 0;
+        }
+        ball1.accel.x = 0.001;
+    }
+    else
+    {
+        if(mag2.position.x <= 4)
+        {
+            mag2.speed.x = 0.05;
+            ball1.accel.x = 0;
+        }
+    }
 }
 
 /* Initialize the OpenGL rendering properties */
@@ -233,18 +232,27 @@ void initGL(GLFWwindow *window, int width, int height) {
     ball1       = Ball(1, -2, COLOR_RED);
     for(int i=0;i<fballs.size();i++)
     {
-        fballs[i] = Obstacle(getRandDouble(-5,3),getRandDouble(-1.6,3),getRandDouble(0.1,0.25),getRandDouble(0.01,0.04),getRandDouble(-45,45),COLOR_YELLOW);
+        fballs[i] = Obstacle(getRandDouble(-5,3),
+                                getRandDouble(-1.6,3),
+                                getRandDouble(0.1,0.25),
+                                getRandDouble(0.01,0.04),
+                                getRandDouble(-45,45),
+                                fballCol[(int)(getRandDouble(0,3))]);
     }
     tramp1      = Trampoline(3, -1.8, COLOR_ORANGE);
 
     ball1.speed.x = 0;
 
     pond1 = Pond(-2,-2.3,1);
+    
+    mag1 = Magnet(-6.0, 1.0, COLOR_RED_BR);
+    mag2 = Magnet(6, 1.0, COLOR_RED_BR);
+    mag2.rotation = 180;
+
     // Create and compile our GLSL program from the shaders
     programID = LoadShaders("Sample_GL.vert", "Sample_GL.frag");
     // Get a handle for our "MVP" uniform
     Matrices.MatrixID = glGetUniformLocation(programID, "MVP");
-
 
     reshapeWindow (window, width, height);
 
@@ -255,14 +263,14 @@ void initGL(GLFWwindow *window, int width, int height) {
     glEnable (GL_DEPTH_TEST);
     glDepthFunc (GL_LEQUAL);
 
-    cout << "VENDOR: " << glGetString(GL_VENDOR) << endl;
-    cout << "RENDERER: " << glGetString(GL_RENDERER) << endl;
-    cout << "VERSION: " << glGetString(GL_VERSION) << endl;
-    cout << "GLSL: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << endl;
+    // cout << "VENDOR: " << glGetString(GL_VENDOR) << endl;
+    // cout << "RENDERER: " << glGetString(GL_RENDERER) << endl;
+    // cout << "VERSION: " << glGetString(GL_VERSION) << endl;
+    // cout << "GLSL: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << endl;
 }
 
-
-int main(int argc, char **argv) {
+int main(int argc, char **argv) 
+{
     srand(time(0));
     int width  = 800;
     int height = 600;
@@ -270,12 +278,14 @@ int main(int argc, char **argv) {
     window = initGLFW(width, height);
 
     initGL (window, width, height);
+            // mag2.active = 1;
 
     /* Draw in loop */
-    while (!glfwWindowShouldClose(window)) {
+    while (!glfwWindowShouldClose(window)) 
+    {
         // Process timers
-
-        if (t60.processTick()) {
+        if (t60.processTick()) 
+        {
             // 60 fps
             // OpenGL Draw commands
             draw();
@@ -285,7 +295,8 @@ int main(int argc, char **argv) {
             tick_elements();
             tick_input(window);
         }
-        if(t2.processTick()) {
+        if(t2.processTick()) 
+        {
             for(int i=0;i<fballs.size();i++)
             {
                 if(fballs[i].position.x > 4)
@@ -293,9 +304,16 @@ int main(int argc, char **argv) {
                     fballs.erase(fballs.begin()+i);
                 }
             }
+            mag2.active = 0;
+            // mag1.active = 1;
             while(fballs.size() < 20)
             {
-                fballs.insert(fballs.end(),Obstacle(getRandDouble(-7,-6),getRandDouble(-1.6,3),getRandDouble(0.1,0.25),getRandDouble(0.01,0.04),getRandDouble(-45,45),COLOR_YELLOW));
+                fballs.insert(fballs.end(),Obstacle(getRandDouble(-7,-6),
+                                                    getRandDouble(-1.6,3),
+                                                    getRandDouble(0.1,0.25),
+                                                    getRandDouble(0.01,0.04),
+                                                    getRandDouble(-45,45),
+                                                    fballCol[(int)(getRandDouble(0,3))]));
             }
 
         }
@@ -307,41 +325,26 @@ int main(int argc, char **argv) {
     quit(window);
 }
 
-// bool detect_collision(bounding_box_t a, bounding_box_t b) {
-//     return (abs(a.x - b.x) * 2 < (a.width + b.width)) &&
-//            (abs(a.y - b.y) * 2 < (a.height + b.height));
-// }
-// bool detect_collision_r(bounding_box_t a, bounding_box_t b) {
-//     return (a.x < b.x && abs(a.x - b.x) * 2 < (a.width + b.width))&&
-//             (abs(a.y - b.y) * 2 < (a.height + b.height));
-// }
-// bool detect_collision_l(bounding_box_t a, bounding_box_t b) {
-//     return (b.x < a.x && abs(a.x - b.x) * 2 < (a.width + b.width))&&
-//             (abs(a.y - b.y) * 2 < (a.height + b.height));
-// }
-// bool detect_collision_y(bounding_box_t a, bounding_box_t b) {
-//     return (abs(a.y - b.y) * 2 < (a.height + b.height));
-// }
 
 bool detectCollision(bounding_box_t player, bounding_box_t obs)
 {
-    return (player.y > obs.y && 2*(player.y - obs.y )<= (0.6+obs.width) && abs(player.x - obs.x)*2<=(0.6 + obs.width));
+    return ( (player.y > obs.y) && 
+            (2*(player.y - obs.y )<= (0.6+obs.width)) && 
+            (abs(player.x - obs.x)*2<=(0.6 + obs.width)));
 }
 
 bool detectWater(bounding_box_t player, bounding_box_t pond)
 {
     return ( (abs(player.x - pond.x) <= pond.width) && 
             (player.y <= pond.y + 0.3) );
-    // return ((pow(abs(player.x - pond.x),2) + pow(abs(player.y - pond.y),2) <= pow(pond.width - 0.3,2)) && player.y <= pond.y + 0.3 && player.y - 0.3 >= pond.y - pond.height);
 }
 
-// bool detectWaterBound(bounding_box_t player, bounding_box_t pond)
-// {
-//     return (player.y <= pond.y + 0.3 && player.y - 0.3 >= pond.y - pond.height && abs(player.x - pond.x) <= pond.width && (pow(abs(player.x - pond.x), 2) + pow(abs(player.y - pond.y), 2) >= pow(pond.width, 2)));
-// }
 bool detectTrampoline(bounding_box_t player, bounding_box_t tramp)
 {
-    return( player.x >= (tramp.x - (tramp.width/2)) && (player.x <= tramp.x + (tramp.width/2)) && (player.y - tramp.y)*2 <= player.width && player.y >= tramp.y );
+    return( (player.x >= (tramp.x - (tramp.width/2))) && 
+            ((player.x <= tramp.x + (tramp.width/2))) && 
+            ((player.y - tramp.y)*2 <= player.width) && 
+            (player.y >= tramp.y) );
 }
 
 void reset_screen() {
@@ -354,6 +357,6 @@ void reset_screen() {
 
 void jump()
 {
-    if(ball1.speed.y == 0 || ball1.position.y < -2.3)
+    if(ball1.speed.y == 0 || ball1.position.y < -2.6)
     ball1.speed.y = 0.12;
 }

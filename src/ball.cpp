@@ -52,19 +52,12 @@ void Ball::set_position(float x, float y) {
     this->position = glm::vec3(x, y, 0);
 }
 
-void Ball::tick() {
-//    this->position.x -= speed;
+void Ball::tick() 
+{
     this->position.x += this->speed.x;
     this->position.y += this->speed.y;
-    // if(this->position.y > -2)
-    // {
     this->speed.y += this->accel.y;
-    // }
-    // else
-    // {
-    //     this->speed.x = 0;
-    //     (this->speed).y = 0;
-    // }
+    this->speed.x += this->accel.x;
 }
 
 bounding_box_t Ball::bounding_box() {

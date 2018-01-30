@@ -153,9 +153,33 @@ CMakeFiles/graphics_asgn1.dir/src/input.cpp.o.provides: CMakeFiles/graphics_asgn
 CMakeFiles/graphics_asgn1.dir/src/input.cpp.o.provides.build: CMakeFiles/graphics_asgn1.dir/src/input.cpp.o
 
 
+CMakeFiles/graphics_asgn1.dir/src/magnet.cpp.o: CMakeFiles/graphics_asgn1.dir/flags.make
+CMakeFiles/graphics_asgn1.dir/src/magnet.cpp.o: src/magnet.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ravsimar/Git/pacman-killer/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/graphics_asgn1.dir/src/magnet.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/graphics_asgn1.dir/src/magnet.cpp.o -c /home/ravsimar/Git/pacman-killer/src/magnet.cpp
+
+CMakeFiles/graphics_asgn1.dir/src/magnet.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/graphics_asgn1.dir/src/magnet.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ravsimar/Git/pacman-killer/src/magnet.cpp > CMakeFiles/graphics_asgn1.dir/src/magnet.cpp.i
+
+CMakeFiles/graphics_asgn1.dir/src/magnet.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/graphics_asgn1.dir/src/magnet.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ravsimar/Git/pacman-killer/src/magnet.cpp -o CMakeFiles/graphics_asgn1.dir/src/magnet.cpp.s
+
+CMakeFiles/graphics_asgn1.dir/src/magnet.cpp.o.requires:
+
+.PHONY : CMakeFiles/graphics_asgn1.dir/src/magnet.cpp.o.requires
+
+CMakeFiles/graphics_asgn1.dir/src/magnet.cpp.o.provides: CMakeFiles/graphics_asgn1.dir/src/magnet.cpp.o.requires
+	$(MAKE) -f CMakeFiles/graphics_asgn1.dir/build.make CMakeFiles/graphics_asgn1.dir/src/magnet.cpp.o.provides.build
+.PHONY : CMakeFiles/graphics_asgn1.dir/src/magnet.cpp.o.provides
+
+CMakeFiles/graphics_asgn1.dir/src/magnet.cpp.o.provides.build: CMakeFiles/graphics_asgn1.dir/src/magnet.cpp.o
+
+
 CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: CMakeFiles/graphics_asgn1.dir/flags.make
 CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ravsimar/Git/pacman-killer/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/graphics_asgn1.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ravsimar/Git/pacman-killer/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/graphics_asgn1.dir/src/main.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/graphics_asgn1.dir/src/main.cpp.o -c /home/ravsimar/Git/pacman-killer/src/main.cpp
 
 CMakeFiles/graphics_asgn1.dir/src/main.cpp.i: cmake_force
@@ -179,7 +203,7 @@ CMakeFiles/graphics_asgn1.dir/src/main.cpp.o.provides.build: CMakeFiles/graphics
 
 CMakeFiles/graphics_asgn1.dir/src/nonedit.cpp.o: CMakeFiles/graphics_asgn1.dir/flags.make
 CMakeFiles/graphics_asgn1.dir/src/nonedit.cpp.o: src/nonedit.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ravsimar/Git/pacman-killer/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/graphics_asgn1.dir/src/nonedit.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ravsimar/Git/pacman-killer/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/graphics_asgn1.dir/src/nonedit.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/graphics_asgn1.dir/src/nonedit.cpp.o -c /home/ravsimar/Git/pacman-killer/src/nonedit.cpp
 
 CMakeFiles/graphics_asgn1.dir/src/nonedit.cpp.i: cmake_force
@@ -203,7 +227,7 @@ CMakeFiles/graphics_asgn1.dir/src/nonedit.cpp.o.provides.build: CMakeFiles/graph
 
 CMakeFiles/graphics_asgn1.dir/src/obstacle.cpp.o: CMakeFiles/graphics_asgn1.dir/flags.make
 CMakeFiles/graphics_asgn1.dir/src/obstacle.cpp.o: src/obstacle.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ravsimar/Git/pacman-killer/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/graphics_asgn1.dir/src/obstacle.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ravsimar/Git/pacman-killer/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/graphics_asgn1.dir/src/obstacle.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/graphics_asgn1.dir/src/obstacle.cpp.o -c /home/ravsimar/Git/pacman-killer/src/obstacle.cpp
 
 CMakeFiles/graphics_asgn1.dir/src/obstacle.cpp.i: cmake_force
@@ -227,7 +251,7 @@ CMakeFiles/graphics_asgn1.dir/src/obstacle.cpp.o.provides.build: CMakeFiles/grap
 
 CMakeFiles/graphics_asgn1.dir/src/other_handlers.cpp.o: CMakeFiles/graphics_asgn1.dir/flags.make
 CMakeFiles/graphics_asgn1.dir/src/other_handlers.cpp.o: src/other_handlers.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ravsimar/Git/pacman-killer/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/graphics_asgn1.dir/src/other_handlers.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ravsimar/Git/pacman-killer/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/graphics_asgn1.dir/src/other_handlers.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/graphics_asgn1.dir/src/other_handlers.cpp.o -c /home/ravsimar/Git/pacman-killer/src/other_handlers.cpp
 
 CMakeFiles/graphics_asgn1.dir/src/other_handlers.cpp.i: cmake_force
@@ -251,7 +275,7 @@ CMakeFiles/graphics_asgn1.dir/src/other_handlers.cpp.o.provides.build: CMakeFile
 
 CMakeFiles/graphics_asgn1.dir/src/pond.cpp.o: CMakeFiles/graphics_asgn1.dir/flags.make
 CMakeFiles/graphics_asgn1.dir/src/pond.cpp.o: src/pond.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ravsimar/Git/pacman-killer/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/graphics_asgn1.dir/src/pond.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ravsimar/Git/pacman-killer/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/graphics_asgn1.dir/src/pond.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/graphics_asgn1.dir/src/pond.cpp.o -c /home/ravsimar/Git/pacman-killer/src/pond.cpp
 
 CMakeFiles/graphics_asgn1.dir/src/pond.cpp.i: cmake_force
@@ -275,7 +299,7 @@ CMakeFiles/graphics_asgn1.dir/src/pond.cpp.o.provides.build: CMakeFiles/graphics
 
 CMakeFiles/graphics_asgn1.dir/src/timer.cpp.o: CMakeFiles/graphics_asgn1.dir/flags.make
 CMakeFiles/graphics_asgn1.dir/src/timer.cpp.o: src/timer.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ravsimar/Git/pacman-killer/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/graphics_asgn1.dir/src/timer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ravsimar/Git/pacman-killer/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/graphics_asgn1.dir/src/timer.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/graphics_asgn1.dir/src/timer.cpp.o -c /home/ravsimar/Git/pacman-killer/src/timer.cpp
 
 CMakeFiles/graphics_asgn1.dir/src/timer.cpp.i: cmake_force
@@ -299,7 +323,7 @@ CMakeFiles/graphics_asgn1.dir/src/timer.cpp.o.provides.build: CMakeFiles/graphic
 
 CMakeFiles/graphics_asgn1.dir/src/trampoline.cpp.o: CMakeFiles/graphics_asgn1.dir/flags.make
 CMakeFiles/graphics_asgn1.dir/src/trampoline.cpp.o: src/trampoline.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ravsimar/Git/pacman-killer/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/graphics_asgn1.dir/src/trampoline.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ravsimar/Git/pacman-killer/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/graphics_asgn1.dir/src/trampoline.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/graphics_asgn1.dir/src/trampoline.cpp.o -c /home/ravsimar/Git/pacman-killer/src/trampoline.cpp
 
 CMakeFiles/graphics_asgn1.dir/src/trampoline.cpp.i: cmake_force
@@ -327,6 +351,7 @@ graphics_asgn1_OBJECTS = \
 "CMakeFiles/graphics_asgn1.dir/src/color.cpp.o" \
 "CMakeFiles/graphics_asgn1.dir/src/floor.cpp.o" \
 "CMakeFiles/graphics_asgn1.dir/src/input.cpp.o" \
+"CMakeFiles/graphics_asgn1.dir/src/magnet.cpp.o" \
 "CMakeFiles/graphics_asgn1.dir/src/main.cpp.o" \
 "CMakeFiles/graphics_asgn1.dir/src/nonedit.cpp.o" \
 "CMakeFiles/graphics_asgn1.dir/src/obstacle.cpp.o" \
@@ -342,6 +367,7 @@ graphics_asgn1: CMakeFiles/graphics_asgn1.dir/src/ball.cpp.o
 graphics_asgn1: CMakeFiles/graphics_asgn1.dir/src/color.cpp.o
 graphics_asgn1: CMakeFiles/graphics_asgn1.dir/src/floor.cpp.o
 graphics_asgn1: CMakeFiles/graphics_asgn1.dir/src/input.cpp.o
+graphics_asgn1: CMakeFiles/graphics_asgn1.dir/src/magnet.cpp.o
 graphics_asgn1: CMakeFiles/graphics_asgn1.dir/src/main.cpp.o
 graphics_asgn1: CMakeFiles/graphics_asgn1.dir/src/nonedit.cpp.o
 graphics_asgn1: CMakeFiles/graphics_asgn1.dir/src/obstacle.cpp.o
@@ -351,7 +377,7 @@ graphics_asgn1: CMakeFiles/graphics_asgn1.dir/src/timer.cpp.o
 graphics_asgn1: CMakeFiles/graphics_asgn1.dir/src/trampoline.cpp.o
 graphics_asgn1: CMakeFiles/graphics_asgn1.dir/build.make
 graphics_asgn1: CMakeFiles/graphics_asgn1.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ravsimar/Git/pacman-killer/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable graphics_asgn1"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ravsimar/Git/pacman-killer/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Linking CXX executable graphics_asgn1"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/graphics_asgn1.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -363,6 +389,7 @@ CMakeFiles/graphics_asgn1.dir/requires: CMakeFiles/graphics_asgn1.dir/src/ball.c
 CMakeFiles/graphics_asgn1.dir/requires: CMakeFiles/graphics_asgn1.dir/src/color.cpp.o.requires
 CMakeFiles/graphics_asgn1.dir/requires: CMakeFiles/graphics_asgn1.dir/src/floor.cpp.o.requires
 CMakeFiles/graphics_asgn1.dir/requires: CMakeFiles/graphics_asgn1.dir/src/input.cpp.o.requires
+CMakeFiles/graphics_asgn1.dir/requires: CMakeFiles/graphics_asgn1.dir/src/magnet.cpp.o.requires
 CMakeFiles/graphics_asgn1.dir/requires: CMakeFiles/graphics_asgn1.dir/src/main.cpp.o.requires
 CMakeFiles/graphics_asgn1.dir/requires: CMakeFiles/graphics_asgn1.dir/src/nonedit.cpp.o.requires
 CMakeFiles/graphics_asgn1.dir/requires: CMakeFiles/graphics_asgn1.dir/src/obstacle.cpp.o.requires

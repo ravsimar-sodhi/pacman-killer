@@ -20,7 +20,6 @@ void Floor::draw(glm::mat4 VP) {
     glm::mat4 rotate    = glm::rotate((float) (0 * M_PI / 180.0f), glm::vec3(0, 0, 1));
     rotate          = rotate * glm::translate(glm::vec3(0, 0, 0));
     Matrices.model *= (translate * rotate);
-//    Matrices.model *= translate;
     glm::mat4 MVP = VP * Matrices.model;
     glUniformMatrix4fv(Matrices.MatrixID, 1, GL_FALSE, &MVP[0][0]);
     draw3DObject(this->object);

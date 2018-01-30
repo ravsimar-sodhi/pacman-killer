@@ -14,7 +14,8 @@
 #include <glm/gtx/transform.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-struct color_t {
+struct color_t 
+{
     int r;
     int g;
     int b;
@@ -40,7 +41,8 @@ void quit(GLFWwindow *window);
 void reshapeWindow(GLFWwindow *window, int width, int height);
 
 // Types
-struct VAO {
+struct VAO 
+{
     GLuint VertexArrayID;
     GLuint VertexBuffer;
     GLuint ColorBuffer;
@@ -51,7 +53,8 @@ struct VAO {
 };
 typedef struct VAO VAO;
 
-struct GLMatrices {
+struct GLMatrices 
+{
     glm::mat4 projection;
     glm::mat4 model;
     glm::mat4 view;
@@ -64,17 +67,14 @@ extern GLMatrices Matrices;
 
 enum direction_t { DIR_UP, DIR_RIGHT, DIR_DOWN, DIR_LEFT };
 
-struct bounding_box_t {
+struct bounding_box_t 
+{
     float x;
     float y;
     float width;
     float height;
 };
 
-// bool detect_collision(bounding_box_t a, bounding_box_t b);
-// bool detect_collision_y(bounding_box_t a, bounding_box_t b);
-// bool detect_collision_l(bounding_box_t a, bounding_box_t b);
-// bool detect_collision_r(bounding_box_t a, bounding_box_t b);
 bool detectCollision(bounding_box_t player, bounding_box_t obs);
 bool detectWater(bounding_box_t player, bounding_box_t pond);
 bool detectTrampoline(bounding_box_t player, bounding_box_t tramp);
@@ -87,11 +87,14 @@ void reset_screen();
 
 // ---- Colors ----
 extern const color_t COLOR_RED;
+extern const color_t COLOR_RED_BR;
 extern const color_t COLOR_GREEN;
 extern const color_t COLOR_BLACK;
 extern const color_t COLOR_BACKGROUND;
 extern const color_t COLOR_YELLOW;
 extern const color_t COLOR_BLUE;
 extern const color_t COLOR_ORANGE;
+extern const color_t COLOR_PINK;
+extern const color_t COLOR_PURPLE;
 
 #endif

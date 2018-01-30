@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/ravsimar/Git/pacman-killer/src/color.cpp" "/home/ravsimar/Git/pacman-killer/CMakeFiles/graphics_asgn1.dir/src/color.cpp.o"
   "/home/ravsimar/Git/pacman-killer/src/floor.cpp" "/home/ravsimar/Git/pacman-killer/CMakeFiles/graphics_asgn1.dir/src/floor.cpp.o"
   "/home/ravsimar/Git/pacman-killer/src/input.cpp" "/home/ravsimar/Git/pacman-killer/CMakeFiles/graphics_asgn1.dir/src/input.cpp.o"
+  "/home/ravsimar/Git/pacman-killer/src/magnet.cpp" "/home/ravsimar/Git/pacman-killer/CMakeFiles/graphics_asgn1.dir/src/magnet.cpp.o"
   "/home/ravsimar/Git/pacman-killer/src/main.cpp" "/home/ravsimar/Git/pacman-killer/CMakeFiles/graphics_asgn1.dir/src/main.cpp.o"
   "/home/ravsimar/Git/pacman-killer/src/nonedit.cpp" "/home/ravsimar/Git/pacman-killer/CMakeFiles/graphics_asgn1.dir/src/nonedit.cpp.o"
   "/home/ravsimar/Git/pacman-killer/src/obstacle.cpp" "/home/ravsimar/Git/pacman-killer/CMakeFiles/graphics_asgn1.dir/src/obstacle.cpp.o"

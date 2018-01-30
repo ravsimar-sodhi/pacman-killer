@@ -15,9 +15,14 @@ CMakeFiles/graphics_asgn1.dir/src/floor.cpp.o
 CMakeFiles/graphics_asgn1.dir/src/input.cpp.o
  /home/ravsimar/Git/pacman-killer/src/input.cpp
  /home/ravsimar/Git/pacman-killer/src/main.h
+CMakeFiles/graphics_asgn1.dir/src/magnet.cpp.o
+ /home/ravsimar/Git/pacman-killer/src/magnet.cpp
+ /home/ravsimar/Git/pacman-killer/src/magnet.h
+ /home/ravsimar/Git/pacman-killer/src/main.h
 CMakeFiles/graphics_asgn1.dir/src/main.cpp.o
  /home/ravsimar/Git/pacman-killer/src/ball.h
  /home/ravsimar/Git/pacman-killer/src/floor.h
+ /home/ravsimar/Git/pacman-killer/src/magnet.h
  /home/ravsimar/Git/pacman-killer/src/main.cpp
  /home/ravsimar/Git/pacman-killer/src/main.h
  /home/ravsimar/Git/pacman-killer/src/obstacle.h

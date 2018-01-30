@@ -15,8 +15,13 @@ CMakeFiles/graphics_asgn1.dir/src/floor.cpp.o: src/main.h
 CMakeFiles/graphics_asgn1.dir/src/input.cpp.o: src/input.cpp
 CMakeFiles/graphics_asgn1.dir/src/input.cpp.o: src/main.h
 
+CMakeFiles/graphics_asgn1.dir/src/magnet.cpp.o: src/magnet.cpp
+CMakeFiles/graphics_asgn1.dir/src/magnet.cpp.o: src/magnet.h
+CMakeFiles/graphics_asgn1.dir/src/magnet.cpp.o: src/main.h
+
 CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/ball.h
 CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/floor.h
+CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/magnet.h
 CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/main.cpp
 CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/main.h
 CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/obstacle.h

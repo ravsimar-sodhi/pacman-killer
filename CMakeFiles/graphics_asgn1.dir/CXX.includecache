@@ -52,6 +52,16 @@ glm/gtc/matrix_transform.hpp
 main.h
 /home/ravsimar/Git/pacman-killer/src/main.h
 
+/home/ravsimar/Git/pacman-killer/src/magnet.cpp
+magnet.h
+/home/ravsimar/Git/pacman-killer/src/magnet.h
+main.h
+/home/ravsimar/Git/pacman-killer/src/main.h
+
+/home/ravsimar/Git/pacman-killer/src/magnet.h
+main.h
+/home/ravsimar/Git/pacman-killer/src/main.h
+
 /home/ravsimar/Git/pacman-killer/src/main.cpp
 main.h
 /home/ravsimar/Git/pacman-killer/src/main.h
@@ -67,6 +77,8 @@ pond.h
 /home/ravsimar/Git/pacman-killer/src/pond.h
 trampoline.h
 /home/ravsimar/Git/pacman-killer/src/trampoline.h
+magnet.h
+/home/ravsimar/Git/pacman-killer/src/magnet.h
 
 /home/ravsimar/Git/pacman-killer/src/main.h
 iostream
