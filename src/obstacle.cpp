@@ -9,7 +9,7 @@ Obstacle::Obstacle(float x, float y, float r, float speedX, float slope, color_t
     this->radius = r;
 //    this->accel = glm::vec3(0,0.001,0);
     static const int n = 25;
-    static GLfloat vertex_buffer_data[n*9];
+    GLfloat vertex_buffer_data[n*9];
     GLfloat angle = 0;
     this->slope = slope;
     // The radius of the circle that will be formed.
@@ -34,7 +34,8 @@ Obstacle::Obstacle(float x, float y, float r, float speedX, float slope, color_t
 
         angle = angle+curr;
     }
-    static GLfloat slope_vertex_buffer_data[] = {
+    
+    GLfloat slope_vertex_buffer_data[] = {
         -r, 1.2*r, 0, // vertex 1
         r,  1.2*r, 0, // vertex 2
         -r,  0.6*r, 0, // vertex 3

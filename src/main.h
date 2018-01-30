@@ -71,11 +71,13 @@ struct bounding_box_t {
     float height;
 };
 
-bool detect_collision(bounding_box_t a, bounding_box_t b);
-bool detect_collision_y(bounding_box_t a, bounding_box_t b);
-bool detect_collision_l(bounding_box_t a, bounding_box_t b);
-bool detect_collision_r(bounding_box_t a, bounding_box_t b);
+// bool detect_collision(bounding_box_t a, bounding_box_t b);
+// bool detect_collision_y(bounding_box_t a, bounding_box_t b);
+// bool detect_collision_l(bounding_box_t a, bounding_box_t b);
+// bool detect_collision_r(bounding_box_t a, bounding_box_t b);
 bool detectCollision(bounding_box_t player, bounding_box_t obs);
+bool detectWater(bounding_box_t player, bounding_box_t pond);
+bool detectTrampoline(bounding_box_t player, bounding_box_t tramp);
 double getRandDouble(double x, double y);
 
 void jump();
@@ -88,5 +90,6 @@ extern const color_t COLOR_GREEN;
 extern const color_t COLOR_BLACK;
 extern const color_t COLOR_BACKGROUND;
 extern const color_t COLOR_YELLOW;
+extern const color_t COLOR_BLUE;
 
 #endif

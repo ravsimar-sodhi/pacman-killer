@@ -20,7 +20,9 @@ CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/floor.h
 CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/main.cpp
 CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/main.h
 CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/obstacle.h
+CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/pond.h
 CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/timer.h
+CMakeFiles/graphics_asgn1.dir/src/main.cpp.o: src/trampoline.h
 
 CMakeFiles/graphics_asgn1.dir/src/nonedit.cpp.o: src/main.h
 CMakeFiles/graphics_asgn1.dir/src/nonedit.cpp.o: src/nonedit.cpp
@@ -32,6 +34,14 @@ CMakeFiles/graphics_asgn1.dir/src/obstacle.cpp.o: src/obstacle.h
 CMakeFiles/graphics_asgn1.dir/src/other_handlers.cpp.o: src/main.h
 CMakeFiles/graphics_asgn1.dir/src/other_handlers.cpp.o: src/other_handlers.cpp
 
+CMakeFiles/graphics_asgn1.dir/src/pond.cpp.o: src/main.h
+CMakeFiles/graphics_asgn1.dir/src/pond.cpp.o: src/pond.cpp
+CMakeFiles/graphics_asgn1.dir/src/pond.cpp.o: src/pond.h
+
 CMakeFiles/graphics_asgn1.dir/src/timer.cpp.o: src/timer.cpp
 CMakeFiles/graphics_asgn1.dir/src/timer.cpp.o: src/timer.h
+
+CMakeFiles/graphics_asgn1.dir/src/trampoline.cpp.o: src/main.h
+CMakeFiles/graphics_asgn1.dir/src/trampoline.cpp.o: src/trampoline.cpp
+CMakeFiles/graphics_asgn1.dir/src/trampoline.cpp.o: src/trampoline.h
 

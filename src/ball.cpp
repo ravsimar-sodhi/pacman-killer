@@ -6,7 +6,7 @@ Ball::Ball(float x, float y, color_t color) {
     this->position = glm::vec3(x, y, 0);
     this->rotation = 0;
     this->speed = glm::vec3(0,0,0);
-    this->accel = glm::vec3(0,0.004,0);
+    this->accel = glm::vec3(0,0,0);
     static const int n = 25;
     static GLfloat vertex_buffer_data[n*9];
 
@@ -54,17 +54,17 @@ void Ball::set_position(float x, float y) {
 
 void Ball::tick() {
 //    this->position.x -= speed;
-    this->position.x += (this->speed).x;
-    this->position.y += (this->speed).y;
-    if(this->position.y > -2)
-    {
-        (this->speed).y -= (this->accel).y;
-    }
-    else
-    {
-        this->speed.x = 0;
-        (this->speed).y = 0;
-    }
+    this->position.x += this->speed.x;
+    this->position.y += this->speed.y;
+    // if(this->position.y > -2)
+    // {
+    this->speed.y += this->accel.y;
+    // }
+    // else
+    // {
+    //     this->speed.x = 0;
+    //     (this->speed).y = 0;
+    // }
 }
 
 bounding_box_t Ball::bounding_box() {

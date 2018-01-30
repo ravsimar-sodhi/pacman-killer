@@ -3,7 +3,7 @@
 
 Floor::Floor(float x, float y, float X, float Y, color_t color)
 {
-    static const GLfloat vertex_buffer_data[] = {
+    GLfloat vertex_buffer_data[] = {
         x, y, 0, // vertex 1
         x,  Y, 0, // vertex 2
         X,  Y, 0, // vertex 3

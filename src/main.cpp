@@ -3,6 +3,8 @@
 #include "ball.h"
 #include "floor.h"
 #include "obstacle.h"
+#include "pond.h"
+#include "trampoline.h"
 
 using namespace std;
 
@@ -15,8 +17,11 @@ GLFWwindow *window;
 **************************/
 
 Floor floor1;
+Floor grass;
 Ball ball1;
 vector<Obstacle> fballs(20);
+Pond pond1;
+Trampoline tramp1;
 
 float screen_zoom = 1, screen_center_x = 0, screen_center_y = 0;
 
@@ -59,8 +64,11 @@ void draw() {
     glm::mat4 MVP;  // MVP = Projection * View * Model
 
     // Scene render
-    ball1.draw(VP);
     floor1.draw(VP);
+    tramp1.draw(VP);
+    grass.draw(VP);
+    pond1.draw(VP);
+    ball1.draw(VP);
     for(int i=0;i<fballs.size();i++)
     {
         fballs[i].draw(VP);
@@ -77,13 +85,13 @@ void tick_input(GLFWwindow *window) {
         ball1.speed.x = 0;
         // Do something
     }
-    else if (right) {
+    if (right) {
 
         ball1.speed.x = 0.04;
         ball1.position.x += (ball1.speed.x);
         ball1.speed.x = 0;
     }
-    else if (up) {
+    if (up) {
 //        keyboard(window,GLFW_KEY_UP,0,GLFW_RELEASE,0);
 
     }
@@ -120,7 +128,7 @@ void tick_elements() {
             else
             {
                 speed = sqrt(pow(ball1.speed.x,2) + pow(ball1.speed.y,2));
-                
+                speed = 0.1;
                 angler = 2*angle - anglei;
                 ball1.speed.x = -speed*cos(angler*M_PI/180.0);
                 ball1.speed.y = speed*sin(angler*M_PI/180.0);
@@ -130,6 +138,43 @@ void tick_elements() {
             break;
         }
     }
+
+    if(detectWater(ball1.bounding_box(), pond1.bounding_box()))
+    {
+        if(ball1.speed.y > 0.1)
+            ball1.speed.y = 0.1;
+        else if (ball1.speed.y < -0.1)
+            ball1.speed.y = -0.1;
+        ball1.accel.y = -0.001;
+
+        // if(ball1.position.x != pond1.position.x)
+        // {
+        //     ball1.speed.x = -0.005*(ball1.position.x-pond1.position.x)/abs(ball1.position.x-pond1.position.x); 
+        // }
+        // if(abs(pond1.position.x - ball1.position.x) >= 0.05)
+        // {
+        //     ball1.position.y = pond1.position.y - sqrt(pow(pond1.radius-0.25,2) - pow(ball1.position.x -pond1.position.x,2));
+        // }
+
+        // cout << "In Pond" << endl;
+    }
+    else
+    {
+        if (ball1.position.y <= -2)
+        {
+            ball1.accel.y = 0;
+            ball1.speed.y = 0;
+            ball1.speed.x = 0;
+        }
+        else
+        {
+            ball1.accel.y = -0.004;
+        }
+    }
+    if(ball1.speed.y <= 0 && detectTrampoline(ball1.bounding_box(), tramp1.bounding_box()))
+    {
+        ball1.speed.y = 0.18;
+    }
 }
 
 /* Initialize the OpenGL rendering properties */
@@ -137,15 +182,18 @@ void tick_elements() {
 void initGL(GLFWwindow *window, int width, int height) {
     /* Objects should be created before any other gl function and shaders */
     // Create the models
-    floor1       = Floor(-4, -4, 4, -2.33, COLOR_BLACK);
+    floor1       = Floor(-6, -4, 6, -2.7, COLOR_BLACK);
+    grass       = Floor(-6,-2.7, 6, -2.3, COLOR_GREEN);
     ball1       = Ball(2, -2, COLOR_RED);
     for(int i=0;i<fballs.size();i++)
     {
         fballs[i] = Obstacle(getRandDouble(-5,3),getRandDouble(-1.6,3),getRandDouble(0.1,0.25),getRandDouble(0.01,0.04),getRandDouble(-45,45),COLOR_YELLOW);
     }
+    tramp1      = Trampoline(3, -1.8, COLOR_RED);
 
     ball1.speed.x = 0;
 
+    pond1 = Pond(-2,-2.3,1);
     // Create and compile our GLSL program from the shaders
     programID = LoadShaders("Sample_GL.vert", "Sample_GL.frag");
     // Get a handle for our "MVP" uniform
@@ -170,7 +218,7 @@ void initGL(GLFWwindow *window, int width, int height) {
 
 int main(int argc, char **argv) {
     srand(time(0));
-    int width  = 600;
+    int width  = 800;
     int height = 600;
 
     window = initGLFW(width, height);
@@ -201,7 +249,7 @@ int main(int argc, char **argv) {
             }
             while(fballs.size() < 20)
             {
-                fballs.insert(fballs.end(),Obstacle(getRandDouble(-5,-4),getRandDouble(-1.6,3),getRandDouble(0.1,0.25),getRandDouble(0.01,0.04),getRandDouble(-45,45),COLOR_YELLOW));
+                fballs.insert(fballs.end(),Obstacle(getRandDouble(-7,-6),getRandDouble(-1.6,3),getRandDouble(0.1,0.25),getRandDouble(0.01,0.04),getRandDouble(-45,45),COLOR_YELLOW));
             }
 
         }
@@ -213,33 +261,42 @@ int main(int argc, char **argv) {
     quit(window);
 }
 
-bool detect_collision(bounding_box_t a, bounding_box_t b) {
-    return (abs(a.x - b.x) * 2 < (a.width + b.width)) &&
-           (abs(a.y - b.y) * 2 < (a.height + b.height));
-}
-bool detect_collision_r(bounding_box_t a, bounding_box_t b) {
-    return (a.x < b.x && abs(a.x - b.x) * 2 < (a.width + b.width))&&
-            (abs(a.y - b.y) * 2 < (a.height + b.height));
-}
-bool detect_collision_l(bounding_box_t a, bounding_box_t b) {
-    return (b.x < a.x && abs(a.x - b.x) * 2 < (a.width + b.width))&&
-            (abs(a.y - b.y) * 2 < (a.height + b.height));
-}
-bool detect_collision_y(bounding_box_t a, bounding_box_t b) {
-    return (abs(a.y - b.y) * 2 < (a.height + b.height));
-}
+// bool detect_collision(bounding_box_t a, bounding_box_t b) {
+//     return (abs(a.x - b.x) * 2 < (a.width + b.width)) &&
+//            (abs(a.y - b.y) * 2 < (a.height + b.height));
+// }
+// bool detect_collision_r(bounding_box_t a, bounding_box_t b) {
+//     return (a.x < b.x && abs(a.x - b.x) * 2 < (a.width + b.width))&&
+//             (abs(a.y - b.y) * 2 < (a.height + b.height));
+// }
+// bool detect_collision_l(bounding_box_t a, bounding_box_t b) {
+//     return (b.x < a.x && abs(a.x - b.x) * 2 < (a.width + b.width))&&
+//             (abs(a.y - b.y) * 2 < (a.height + b.height));
+// }
+// bool detect_collision_y(bounding_box_t a, bounding_box_t b) {
+//     return (abs(a.y - b.y) * 2 < (a.height + b.height));
+// }
 
 bool detectCollision(bounding_box_t player, bounding_box_t obs)
 {
     return (player.y > obs.y && 2*(player.y - obs.y )<= (0.6+obs.width) && abs(player.x - obs.x)*2<=(0.6 + obs.width));
 }
 
+bool detectWater(bounding_box_t player, bounding_box_t pond)
+{
+    return ((pow(abs(player.x - pond.x),2) + pow(abs(player.y - pond.y),2) <= pow(pond.width - 0.25,2)) && player.y <= pond.y + 0.3 && player.y - 0.3 >= pond.y - pond.height);
+}
+
+bool detectTrampoline(bounding_box_t player, bounding_box_t tramp)
+{
+    return( player.x >= (tramp.x - (tramp.width/2)) && (player.x <= tramp.x + (tramp.width/2)) && (player.y - tramp.y)*2 <= player.width && player.y >= tramp.y );
+}
 
 void reset_screen() {
     float top    = screen_center_y + 4 / screen_zoom;
     float bottom = screen_center_y - 4 / screen_zoom;
-    float left   = screen_center_x - 4 / screen_zoom;
-    float right  = screen_center_x + 4 / screen_zoom;
+    float left   = screen_center_x - 5.5 / screen_zoom;
+    float right  = screen_center_x + 5.5 / screen_zoom;
     Matrices.projection = glm::ortho(left, right, bottom, top, 0.1f, 500.0f);
 }
 
