@@ -27,6 +27,7 @@ CMakeFiles/graphics_asgn1.dir/src/main.cpp.o
  /home/ravsimar/Git/pacman-killer/src/main.h
  /home/ravsimar/Git/pacman-killer/src/obstacle.h
  /home/ravsimar/Git/pacman-killer/src/pond.h
+ /home/ravsimar/Git/pacman-killer/src/spikes.h
  /home/ravsimar/Git/pacman-killer/src/timer.h
  /home/ravsimar/Git/pacman-killer/src/trampoline.h
 CMakeFiles/graphics_asgn1.dir/src/nonedit.cpp.o
@@ -43,6 +44,10 @@ CMakeFiles/graphics_asgn1.dir/src/pond.cpp.o
  /home/ravsimar/Git/pacman-killer/src/main.h
  /home/ravsimar/Git/pacman-killer/src/pond.cpp
  /home/ravsimar/Git/pacman-killer/src/pond.h
+CMakeFiles/graphics_asgn1.dir/src/spikes.cpp.o
+ /home/ravsimar/Git/pacman-killer/src/main.h
+ /home/ravsimar/Git/pacman-killer/src/spikes.cpp
+ /home/ravsimar/Git/pacman-killer/src/spikes.h
 CMakeFiles/graphics_asgn1.dir/src/timer.cpp.o
  /home/ravsimar/Git/pacman-killer/src/timer.cpp
  /home/ravsimar/Git/pacman-killer/src/timer.h

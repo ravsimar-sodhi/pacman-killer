@@ -2,12 +2,11 @@
 #include "main.h"
 #define PI 3.14159265
 
-Obstacle::Obstacle(float x, float y, float r, float speedX, float slope, color_t color) {
+Obstacle::Obstacle(float x, float y, float r, float speedX, float slope, color_t color) 
+{
     this->position = glm::vec3(x, y, 0);
-//    this->rotation = 0;
     this->speed = glm::vec3(speedX,0,0);
     this->radius = r;
-//    this->accel = glm::vec3(0,0.001,0);
     static const int n = 25;
     GLfloat vertex_buffer_data[n*9];
     GLfloat angle = 0;

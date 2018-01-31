@@ -13,6 +13,7 @@ public:
     glm::vec3 speed;
     float radius;
     float slope;
+    int score;
     void draw(glm::mat4 VP);
     void set_position(float x, float y);
     void tick();

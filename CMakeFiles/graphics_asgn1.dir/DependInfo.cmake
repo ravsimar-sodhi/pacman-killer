@@ -14,6 +14,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/ravsimar/Git/pacman-killer/src/obstacle.cpp" "/home/ravsimar/Git/pacman-killer/CMakeFiles/graphics_asgn1.dir/src/obstacle.cpp.o"
   "/home/ravsimar/Git/pacman-killer/src/other_handlers.cpp" "/home/ravsimar/Git/pacman-killer/CMakeFiles/graphics_asgn1.dir/src/other_handlers.cpp.o"
   "/home/ravsimar/Git/pacman-killer/src/pond.cpp" "/home/ravsimar/Git/pacman-killer/CMakeFiles/graphics_asgn1.dir/src/pond.cpp.o"
+  "/home/ravsimar/Git/pacman-killer/src/spikes.cpp" "/home/ravsimar/Git/pacman-killer/CMakeFiles/graphics_asgn1.dir/src/spikes.cpp.o"
   "/home/ravsimar/Git/pacman-killer/src/timer.cpp" "/home/ravsimar/Git/pacman-killer/CMakeFiles/graphics_asgn1.dir/src/timer.cpp.o"
   "/home/ravsimar/Git/pacman-killer/src/trampoline.cpp" "/home/ravsimar/Git/pacman-killer/CMakeFiles/graphics_asgn1.dir/src/trampoline.cpp.o"
   )

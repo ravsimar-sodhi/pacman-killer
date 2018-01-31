@@ -8,19 +8,22 @@ Magnet::Magnet(float x, float y, color_t color)
     this->rotation = 0;
     this->active = 0;
     static const int n = 25;
-    static GLfloat vertex_buffer_data[n * 9];
+    GLfloat vertex_buffer_data[n * 9];
+    GLfloat vertex_buffer_data2[n * 9];
 
     GLfloat angle = 1.57;
 
     GLfloat radius = 0.5;
+    GLfloat inradius = 0.3;
+
     for (int i = 0; i < n * 9; i += 9)
     {
         // The points for the center of the polygon
+        GLfloat curr = (PI) / n;
         vertex_buffer_data[i] = 0;
         vertex_buffer_data[i + 1] = 0;
         vertex_buffer_data[i + 2] = 0;
 
-        GLfloat curr = (PI) / n;
 
         vertex_buffer_data[i + 3] = (GLfloat)radius * cos(angle);
         vertex_buffer_data[i + 4] = (GLfloat)radius * sin(angle);
@@ -30,9 +33,24 @@ Magnet::Magnet(float x, float y, color_t color)
         vertex_buffer_data[i + 7] = (GLfloat)radius * sin(angle + curr);
         vertex_buffer_data[i + 8] = (GLfloat)0;
 
+        vertex_buffer_data2[i] = 0;
+        vertex_buffer_data2[i + 1] = 0;
+        vertex_buffer_data2[i + 2] = 0;
+
+
+        vertex_buffer_data2[i + 3] = (GLfloat)inradius * cos(angle);
+        vertex_buffer_data2[i + 4] = (GLfloat)inradius * sin(angle);
+        vertex_buffer_data2[i + 5] = (GLfloat)0;
+
+        vertex_buffer_data2[i + 6] = (GLfloat)inradius * cos(angle + curr);
+        vertex_buffer_data2[i + 7] = (GLfloat)inradius * sin(angle + curr);
+        vertex_buffer_data2[i + 8] = (GLfloat)0;
+        
         angle = angle + curr;
     }
     this->object = create3DObject(GL_TRIANGLES, n * 3, vertex_buffer_data, color, GL_FILL);
+    this->inner = create3DObject(GL_TRIANGLES, n * 3, vertex_buffer_data2, COLOR_BACKGROUND, GL_FILL);
+    
 }
 
 void Magnet::draw(glm::mat4 VP)
@@ -45,6 +63,8 @@ void Magnet::draw(glm::mat4 VP)
     glm::mat4 MVP = VP * Matrices.model;
     glUniformMatrix4fv(Matrices.MatrixID, 1, GL_FALSE, &MVP[0][0]);
     draw3DObject(this->object);
+    draw3DObject(this->inner);
+    
 }
 
 void Magnet::set_position(float x, float y)

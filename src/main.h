@@ -79,6 +79,7 @@ bool detectCollision(bounding_box_t player, bounding_box_t obs);
 bool detectWater(bounding_box_t player, bounding_box_t pond);
 bool detectTrampoline(bounding_box_t player, bounding_box_t tramp);
 bool detectWaterBound(bounding_box_t player, bounding_box_t pond);
+bool detectSpike(bounding_box_t player, bounding_box_t spike);
 double getRandDouble(double x, double y);
 
 void jump();

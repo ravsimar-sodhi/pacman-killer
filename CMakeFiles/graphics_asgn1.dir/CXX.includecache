@@ -79,6 +79,8 @@ trampoline.h
 /home/ravsimar/Git/pacman-killer/src/trampoline.h
 magnet.h
 /home/ravsimar/Git/pacman-killer/src/magnet.h
+spikes.h
+/home/ravsimar/Git/pacman-killer/src/spikes.h
 
 /home/ravsimar/Git/pacman-killer/src/main.h
 iostream
@@ -161,6 +163,16 @@ main.h
 /home/ravsimar/Git/pacman-killer/src/main.h
 
 /home/ravsimar/Git/pacman-killer/src/pond.h
+main.h
+/home/ravsimar/Git/pacman-killer/src/main.h
+
+/home/ravsimar/Git/pacman-killer/src/spikes.cpp
+spikes.h
+/home/ravsimar/Git/pacman-killer/src/spikes.h
+main.h
+/home/ravsimar/Git/pacman-killer/src/main.h
+
+/home/ravsimar/Git/pacman-killer/src/spikes.h
 main.h
 /home/ravsimar/Git/pacman-killer/src/main.h
 

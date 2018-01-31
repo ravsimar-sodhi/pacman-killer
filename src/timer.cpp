@@ -8,9 +8,11 @@ Timer::Timer(double interval) {
 
 bool Timer::processTick() {
     double cur = glfwGetTime();
-    if (cur - prev >= interval) {
+    if (cur - prev >= interval) 
+    {
         prev = cur;
         return true;
-    } else
+    } 
+    else
         return false;
 }

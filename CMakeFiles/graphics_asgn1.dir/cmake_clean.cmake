@@ -9,6 +9,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/graphics_asgn1.dir/src/obstacle.cpp.o"
   "CMakeFiles/graphics_asgn1.dir/src/other_handlers.cpp.o"
   "CMakeFiles/graphics_asgn1.dir/src/pond.cpp.o"
+  "CMakeFiles/graphics_asgn1.dir/src/spikes.cpp.o"
   "CMakeFiles/graphics_asgn1.dir/src/timer.cpp.o"
   "CMakeFiles/graphics_asgn1.dir/src/trampoline.cpp.o"
   "graphics_asgn1.pdb"
