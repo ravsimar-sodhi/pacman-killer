@@ -31,7 +31,20 @@ void keyboard(GLFWwindow *window, int key, int scancode, int action, int mods) {
     } else if (action == GLFW_PRESS) {
         switch (key) {
         case GLFW_KEY_UP:
-            jump();
+            screen_center_y++;
+            reset_screen();
+            break;
+        case GLFW_KEY_DOWN:
+            screen_center_y--;
+            reset_screen();
+            break;
+        case GLFW_KEY_RIGHT:
+            screen_center_x++;
+            reset_screen();
+            break;
+        case GLFW_KEY_LEFT:
+            screen_center_x--;
+            reset_screen();
             break;
         case GLFW_KEY_ESCAPE:
             quit(window);
@@ -75,6 +88,8 @@ void mouseButton(GLFWwindow *window, int button, int action, int mods) {
     }
 }
 
-void scroll_callback(GLFWwindow *window, double xoffset, double yoffset) {
-    // Do something
+void scroll_callback(GLFWwindow *window, double xoffset, double yoffset) 
+{
+    screen_zoom += 0.1*yoffset;
+    reset_screen();
 }

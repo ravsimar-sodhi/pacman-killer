@@ -38,6 +38,7 @@ double getRandDouble(double l, double r)
 {
     return l + (((double)rand())/RAND_MAX)*(r - l);
 }
+
 bool detectCollision(bounding_box_t player, bounding_box_t obs)
 {
     return ( (player.y > obs.y) && 
@@ -64,6 +65,7 @@ bool detectSpike(bounding_box_t player, bounding_box_t spike)
     return ( abs(player.x - spike.x)*2 <= spike.width &&
             (player.y - spike.y) <= spike.height);
 }
+
 void magnetHandler()
 {
     if(mag[0].active == 1)
@@ -115,6 +117,7 @@ void magnetHandler()
         }
     }
 }
+
 void spikeHandler()
 {
     if(spike1.active == 1)
@@ -129,6 +132,7 @@ void spikeHandler()
         }
     }
 }
+
 void waterHandler()
 {
     if (ball1.speed.y > 0.06)
@@ -149,6 +153,7 @@ void waterHandler()
         ball1.position.y = pond1.corrsY(ball1.position.x) + 0.3;
     }
 }
+
 void obstacleHandler(int i)
 {
     double angle,anglei,angler,speed;
@@ -180,23 +185,59 @@ void obstacleHandler(int i)
     fballs.erase(fballs.begin()+i);
     return ;
 }
+
+void obstacleCountHandler()
+{
+    if(t2.processTick()) 
+        {
+            for(int i=0;i<fballs.size();i++)
+            {
+                if(fballs[i].position.x > 4)
+                {
+                    fballs.erase(fballs.begin()+i);
+                }
+            }
+            while(fballs.size() < 20)
+            {
+                int colInd = (int)(getRandDouble(0,3));
+                double angleInd =(score < 100 ? 0 : getRandDouble(-45,45)); 
+                fballs.insert(fballs.end(),Obstacle(getRandDouble(-7,-6),
+                                                    getRandDouble(-1.6,3),
+                                                    getRandDouble(0.1,0.25),
+                                                    getRandDouble(0.01,0.04),
+                                                    angleInd,
+                                                    fballCol[colInd]));
+                fballs.back().score = colInd*5 + 5;
+            }
+        }
+}
+
 void levelHandler()
 {
-    if(score > 250)
+    static int spikeFlag = 0;
+    static int magFlag = 0;
+    if(score > 250 || spikeFlag == 1)
     {
+        spikeFlag = 1;
         spike1.active = 1;
     }
-    if(score > 0)
+    if(score > 300 || magFlag == 1)
     {
-        int prevInd = -1;
+        magFlag = 1;
+        static int magInd = 1;
         if(t5.processTick())
         {
-           int magInd = (int)(getRandDouble(0,2));
-           if(prevInd != -1 && magInd != prevInd && mag[prevInd].active == 1) 
-                mag[prevInd].active = 0;
-           else 
-                mag[magInd].active = 1 - mag[magInd].active;
-           prevInd = magInd;
+            if(mag[magInd].active == 1) 
+            {
+                mag[magInd].active = 0;
+                // cout << "deactivating magnet" << magInd << endl;
+            }
+            else 
+            {
+                mag[(magInd+1)%2].active = 1;
+                magInd = (magInd+1)%2;
+                // cout << "activating magnet" << magInd << endl;
+            }
         } 
     }
 }
@@ -247,9 +288,9 @@ void draw()
 }
 void tick_input(GLFWwindow *window) 
 {
-    int left  = glfwGetKey(window, GLFW_KEY_LEFT);
-    int right = glfwGetKey(window, GLFW_KEY_RIGHT);
-    int up = glfwGetKey(window, GLFW_KEY_UP);
+    int left  = glfwGetKey(window, GLFW_KEY_A);
+    int right = glfwGetKey(window, GLFW_KEY_D);
+    int up = glfwGetKey(window, GLFW_KEY_SPACE);
     if (left) 
     {
         ball1.speed.x = -0.04;
@@ -265,7 +306,7 @@ void tick_input(GLFWwindow *window)
     }
     if (up) 
     {
-
+        ball1.jump();
     }
 }
 
@@ -389,28 +430,7 @@ int main(int argc, char **argv)
             tick_input(window);
         }
         levelHandler();
-        if(t2.processTick()) 
-        {
-            for(int i=0;i<fballs.size();i++)
-            {
-                if(fballs[i].position.x > 4)
-                {
-                    fballs.erase(fballs.begin()+i);
-                }
-            }
-            while(fballs.size() < 20)
-            {
-                int colInd = (int)(getRandDouble(0,3));
-                double angleInd =(score < 100 ? 0 : getRandDouble(-45,45)); 
-                fballs.insert(fballs.end(),Obstacle(getRandDouble(-7,-6),
-                                                    getRandDouble(-1.6,3),
-                                                    getRandDouble(0.1,0.25),
-                                                    getRandDouble(0.01,0.04),
-                                                    angleInd,
-                                                    fballCol[colInd]));
-                fballs.back().score = colInd*5 + 5;
-            }
-        }
+        obstacleCountHandler();
         // Poll for Keyboard and mouse events
         glfwPollEvents();
     }
@@ -424,9 +444,4 @@ void reset_screen()
     float left   = screen_center_x - 5.5 / screen_zoom;
     float right  = screen_center_x + 5.5 / screen_zoom;
     Matrices.projection = glm::ortho(left, right, bottom, top, 0.1f, 500.0f);
-}
-void jump()
-{
-    if(ball1.speed.y == 0 || ball1.position.y < -2.6)
-    ball1.speed.y = 0.12;
 }

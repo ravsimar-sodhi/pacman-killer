@@ -82,7 +82,6 @@ bool detectWaterBound(bounding_box_t player, bounding_box_t pond);
 bool detectSpike(bounding_box_t player, bounding_box_t spike);
 double getRandDouble(double x, double y);
 
-void jump();
 extern float screen_zoom, screen_center_x, screen_center_y;
 void reset_screen();
 

@@ -59,7 +59,11 @@ void Ball::tick()
     this->speed.y += this->accel.y;
     this->speed.x += this->accel.x;
 }
-
+void Ball::jump()
+{
+    if(this->speed.y == 0 || this->position.y < -2.6)
+    this->speed.y = 0.12;
+}
 bounding_box_t Ball::bounding_box() {
     float x = this->position.x, y = this->position.y;
     bounding_box_t bbox = { x, y, 0.6, 0.6 };
