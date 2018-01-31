@@ -80,6 +80,7 @@ bool detectWater(bounding_box_t player, bounding_box_t pond);
 bool detectTrampoline(bounding_box_t player, bounding_box_t tramp);
 bool detectWaterBound(bounding_box_t player, bounding_box_t pond);
 bool detectSpike(bounding_box_t player, bounding_box_t spike);
+bool detectScreenBoundary(bounding_box_t player);
 double getRandDouble(double x, double y);
 
 extern float screen_zoom, screen_center_x, screen_center_y;

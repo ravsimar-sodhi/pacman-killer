@@ -66,6 +66,12 @@ bool detectSpike(bounding_box_t player, bounding_box_t spike)
             (player.y - spike.y) <= spike.height);
 }
 
+bool detectScreenBoundary(bounding_box_t player)
+{
+    return (player.x >= 5.4 || 
+            player.x <= -5.4);
+}
+
 void magnetHandler()
 {
     if(mag[0].active == 1)
@@ -192,7 +198,7 @@ void obstacleCountHandler()
         {
             for(int i=0;i<fballs.size();i++)
             {
-                if(fballs[i].position.x > 4)
+                if(fballs[i].position.x > 6)
                 {
                     fballs.erase(fballs.begin()+i);
                 }
@@ -277,10 +283,13 @@ void draw()
     tramp1.draw(VP);
     grass.draw(VP);
     pond1.draw(VP);
-    mag[0].draw(VP);
-    mag[1].draw(VP);
+    if(mag[0].active)
+        mag[0].draw(VP);
+    if(mag[1].active)
+        mag[1].draw(VP);
     ball1.draw(VP);
-    spike1.draw(VP);
+    if(spike1.active)
+        spike1.draw(VP);
     for(int i=0;i<fballs.size();i++)
     {
         fballs[i].draw(VP);
@@ -291,13 +300,13 @@ void tick_input(GLFWwindow *window)
     int left  = glfwGetKey(window, GLFW_KEY_A);
     int right = glfwGetKey(window, GLFW_KEY_D);
     int up = glfwGetKey(window, GLFW_KEY_SPACE);
-    if (left) 
+    if (left && ball1.position.x >= -5.5) 
     {
         ball1.speed.x = -0.04;
         ball1.position.x += (ball1.speed.x);
         ball1.speed.x = 0;
     }
-    if (right) 
+    if (right && ball1.position.x <= 5.5) 
     {
 
         ball1.speed.x = 0.04;
@@ -351,6 +360,10 @@ void tick_elements()
     if (ball1.speed.y <= 0 && detectTrampoline(ball1.bounding_box(), tramp1.bounding_box()))
     {
         ball1.speed.y = 0.18;
+    }
+    if(detectScreenBoundary(ball1.bounding_box()))
+    {
+        ball1.speed.x = 0;
     }
     magnetHandler();
     spikeHandler();
